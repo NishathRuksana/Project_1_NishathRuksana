@@ -1,7 +1,9 @@
+import os
 import csv
 import psycopg2
 
-DATABASE_URL = "postgresql://postgres:8214@localhost/project1_2_book_reviews"
+# Get the DATABASE_URL from the environment variable
+DATABASE_URL = os.getenv("DATABASE_URL")
 
 conn = psycopg2.connect(DATABASE_URL)
 cur = conn.cursor()
