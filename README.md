@@ -7,20 +7,20 @@ This is a web application that allows users to search for books and view details
 # Project Structure
 
 
-📂 static/                  # Static files (CSS, JavaScript, images)
- ├── styles.css            # Main stylesheet for the project
-📂 templates/               # HTML templates
- ├── base.html             # Base template for layout inheritance
- ├── book.html             # Book details page
- ├── index.html            # Home page
- ├── login.html            # User login page
- ├── register.html         # User registration page
- ├── search.html           # Book search page
-📄 application.py           # Main Flask application
-📄 books.csv                # Dataset containing book information
-📄 import.py                # Script to import book data
-📄 requirements.txt         # Dependencies for the project
-📄 README.md                # Project documentation
+📂 static/                  
+ ├── styles.css            
+📂 templates/               
+ ├── base.html             
+ ├── book.html             
+ ├── index.html            
+ ├── login.html            
+ ├── register.html         
+ ├── search.html           
+📄 application.py           
+📄 books.csv                
+📄 import.py                
+📄 requirements.txt         
+📄 README.md                
 
 
  # Features
