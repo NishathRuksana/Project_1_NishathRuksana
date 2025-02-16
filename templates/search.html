@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block title %}Search Books{% endblock %}
+
+{% block content %}
+<div class="search-section mb-4">
+    <h2>Search Books</h2>
+    <form method="POST" class="search-form">
+        <div class="row g-3">
+            <div class="col-md-8">
+                <input type="text" class="form-control" name="query" placeholder="Search by ISBN, title, or author..." value="{{ search_query or '' }}" required>
+            </div>
+            <div class="col-md-2">
+                <select name="search_type" class="form-select">
+                    <option value="all">All Fields</option>
+                    <option value="isbn">ISBN</option>
+                    <option value="title">Title</option>
+                    <option value="author">Author</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <button type="submit" class="btn btn-primary w-100">Search</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+{% if books %}
+    <div class="results-info mb-3">
+        <p>Found {{ books|length }} result(s) for "{{ search_query }}"</p>
+    </div>
+
+    <div class="row">
+        {% for book in books %}
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="card book-card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ book.title }}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">by {{ book.author }}</h6>
+                        <p class="card-text">
+                            <small class="text-muted">Published: {{ book.year }}</small><br>
+                            <small class="text-muted">ISBN: {{ book.isbn }}</small>
+                        </p>
+                        <a href="{{ url_for('book', isbn=book.isbn) }}" class="btn btn-outline-primary">View Details</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% elif request.method == 'POST' %}
+    <div class="alert alert-info">
+        No books found matching "{{ search_query }}".
+    </div>
+{% endif %}
+{% endblock %}

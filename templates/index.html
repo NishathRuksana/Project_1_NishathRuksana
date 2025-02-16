@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+{% block title %}Welcome{% endblock %}
+
+{% block content %}
+<div class="jumbotron bg-dark p-5 rounded-3 mb-4">
+    <h1 class="display-4">Welcome to BookReviews!</h1>
+    {% if session.user_id %}
+        <p class="lead">Hello {{ username }}! Ready to explore some books?</p>
+        <hr class="my-4">
+        <p>Search for books, write reviews, and join our community of readers.</p>
+        <a class="btn btn-primary btn-lg" href="{{ url_for('search') }}" role="button">Start Exploring</a>
+    {% else %}
+        <p class="lead">Your literary journey starts here.</p>
+        <hr class="my-4">
+        <p>Join our community to discover and review books with fellow readers.</p>
+        <div class="d-flex gap-2">
+            <a class="btn btn-primary btn-lg" href="{{ url_for('login') }}" role="button">Login</a>
+            <a class="btn btn-outline-primary btn-lg" href="{{ url_for('register') }}" role="button">Register</a>
+        </div>
+    {% endif %}
+</div>
+
+{% if session.user_id %}
+    <div class="row g-4 mb-4">
+        <div class="col-md-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <i class="bi bi-search"></i> Search Books
+                    </h5>
+                    <p class="card-text">Find your next great read from our extensive collection of books.</p>
+                    <a href="{{ url_for('search') }}" class="btn btn-primary">Search Now</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <i class="bi bi-star"></i> Write Reviews
+                    </h5>
+                    <p class="card-text">Share your thoughts and help others discover great books.</p>
+                    <a href="{{ url_for('search') }}" class="btn btn-outline-primary">Find Books to Review</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <i class="bi bi-people"></i> Join the Community
+                    </h5>
+                    <p class="card-text">Connect with other readers and discover new perspectives.</p>
+                    <button class="btn btn-secondary" disabled>Coming Soon</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card bg-dark">
+        <div class="card-body">
+            <h2 class="card-title h4">Quick Search</h2>
+            <form action="{{ url_for('search') }}" method="POST" class="row g-3">
+                <div class="col-md-8">
+                    <input type="text" class="form-control" name="query" placeholder="Search by book title, author, or ISBN..." required>
+                </div>
+                <div class="col-md-2">
+                    <select name="search_type" class="form-select">
+                        <option value="all">All Fields</option>
+                        <option value="title">Title</option>
+                        <option value="author">Author</option>
+                        <option value="isbn">ISBN</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-primary w-100">Search</button>
+                </div>
+            </form>
+        </div>
+    </div>
+{% else %}
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Discover Books</h5>
+                    <p class="card-text">Access our extensive library of books and reviews.</p>
+                    <a href="{{ url_for('register') }}" class="btn btn-primary">Join Now</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Share Your Thoughts</h5>
+                    <p class="card-text">Write reviews and help others find their next read.</p>
+                    <a href="{{ url_for('register') }}" class="btn btn-primary">Start Reviewing</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Connect with Readers</h5>
+                    <p class="card-text">Join our community of book enthusiasts.</p>
+                    <a href="{{ url_for('register') }}" class="btn btn-primary">Get Started</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endif %}
+{% endblock %}
