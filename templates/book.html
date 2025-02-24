@@ -10,17 +10,37 @@
         </ol>
     </nav>
 
-    <div class="card">
+    <div class="card mb-4">
         <div class="card-body">
             <h1 class="card-title">{{ book.title }}</h1>
             <h6 class="card-subtitle mb-3 text-muted">by {{ book.author }}</h6>
-            
-            <div class="row mb-4">
+            <div class="row mb-3">
                 <div class="col-md-6">
                     <p><strong>Year:</strong> {{ book.year }}</p>
                     <p><strong>ISBN:</strong> {{ book.isbn }}</p>
                 </div>
+                <div class="col-md-6">
+                    {% if google_data.publishedDate %}
+                        <p><strong>Published Date:</strong> {{ google_data.publishedDate }}</p>
+                    {% endif %}
+                    {% if google_data.averageRating %}
+                        <p><strong>Average Rating:</strong> {{ google_data.averageRating }} 
+                        {% if google_data.ratingsCount %} ({{ google_data.ratingsCount }} ratings){% endif %}</p>
+                    {% endif %}
+                </div>
             </div>
+            <!-- {% if google_data.description %}
+                <div class="mb-3">
+                    <h5>Description</h5>
+                    <p>{{ google_data.description }}</p>
+                </div>
+            {% endif %} -->
+            {% if gemini_summary %}
+                <div class="mb-3">
+                    <h5>Summarized Description</h5>
+                    <p>{{ gemini_summary }}</p>
+                </div>
+            {% endif %}
         </div>
     </div>
 </div>
@@ -48,7 +68,6 @@
                     <div class="mb-3">
                         <label for="review" class="form-label">Your Review</label>
                         <textarea class="form-control" name="review" id="review" rows="4" maxlength="2000" required></textarea>
-                        <div class="char-count text-muted"></div>
                     </div>
                     
                     <button type="submit" class="btn btn-primary">Submit Review</button>
